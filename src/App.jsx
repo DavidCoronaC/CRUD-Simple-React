@@ -3,12 +3,19 @@ import shortid from "shortid";
 
 function App() {
 
+  // Crear nuevas Tareas a travez del input y SetTarea
   const [tarea, setTarea] = useState('');
+  // Mostrar y almacenar las multiples tareas creadas
   const [listaTareas, setListaTareas] = useState([]);
+  // Realizar cambios visuales al solicitar una modificación de tarea
   const [modoEdicion, setModoEdicion] = useState(false);
+  // Obtener id especifico para modificación de tarea
   const [id, setId] = useState('');
+  // Almacenar y mostrar Errores
   const [error, setError] = useState(null);
 
+  // Funcion para agregar nuevas tareas y mostrarlas en pantalla
+  // en el caso de errores, creara un mensaje de error
   const agregarTarea = e => {
     e.preventDefault();
     if(!tarea.trim()){
@@ -22,12 +29,18 @@ function App() {
      setError(null);
   }
 
+  // Funcion para eliminar tareas dentro de la Lista de tareas
+  // Obtiene id de la tarea y realiza un filtrado omitiendo la
+  // tarea eliminada
   const eliminarTarea = (id) => {
     const nuevoArray = listaTareas.filter( tarea => tarea.id !== id );
     setListaTareas(nuevoArray);
     console.log(id);
   }
 
+  // Funcion para Editar Tareas
+  // Realiza el cambio para visualizar el modo edicion en la interfaz
+  // Cambiando y mostrando los datos de la tarea a Editar
   const editarTarea= (tarea) => {
     console.log(tarea);
     setModoEdicion(true);
@@ -35,6 +48,10 @@ function App() {
     setId(tarea.id);
   }
 
+  // Funcion Modificar Tarea,
+  // Crea una nueva lista de tareas con la nueva informacion de
+  // la tarea modificada, y restablece los valores de modo edicion
+  // para poder agregar tareas nuevamente 
   const modificarTarea = (e) => {
     e.preventDefault();
 
@@ -52,6 +69,8 @@ function App() {
   }
 
   return (
+    // Lista de tareas con sus respectivos campos de CRUD
+    // se creara un nuevo elemento, por cada Elemento en la lista de Tareas
     <div className="container">
       <h3 className="text-center">CRUD Simple</h3>
       <hr />
@@ -77,9 +96,11 @@ function App() {
               ))
             )
           }
-
           </ul>
         </div>
+
+        // Formulario para Crear y Modificar Tareas,
+        // Cambia elementos visuales dependiendo las necesidades del Usuario
         <div className="col-4">
           <h4 className="text-center">
               {
